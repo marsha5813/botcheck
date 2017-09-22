@@ -1,0 +1,61 @@
+---
+title: "Making a call to the Botometer API from R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Botometer [checks the activity of a Twitter account and gives it a score based on how likely the account is to be a bot. Higher scores are more bot-like.](https://botometer.iuni.iu.edu/#!/)
+
+Using the [Botometer API](https://market.mashape.com/OSoMe/botometer) is pretty simple. You POST a .json file that [looks like the example request payload here](https://market.mashape.com/OSoMe/botometer) and then receive the response. [Read the overview](https://market.mashape.com/OSoMe/botometer/overview) for more information.
+
+The API documentation provides example API requests in a variety of formats, but there aren't any examples using R. This very simple script is a template you can use for making calls to Botometer in R.
+
+You must first [get your own API key](https://market.mashape.com/OSoMe/botometer). Then load libraries:
+
+```{r, eval=FALSE}
+library(httr)
+library(xml2)
+library(RCurl)
+library(ROAuth)
+library(rjson)
+library(openssl)
+library(httpuv)
+```
+
+Next, read in the example .json file included in this repo:
+
+```{r, eval=FALSE}
+testbody = upload_file("test.json")
+```
+
+Then POST the file to Botometer, replacing "XXXXX" with your key:
+
+```{r, eval=FALSE}
+result <- POST("https://osome-botometer.p.mashape.com/2/check_account",
+               verbose(),
+               encode="json",
+               add_headers(`X-Mashape-Key`="xxxxxxxxxxxxxxx"),
+               body=testbody)
+```
+
+
+And look at the results:
+
+```{r, eval=FALSE}
+content(result)
+```
+
+
+You should get a brief response that let's you know the test was successful. To post real Twitter data to the API, you'll need to collect tweets, maybe using [twitteR](https://www.rdocumentation.org/packages/twitteR/versions/1.1.9) or [streamR](https://cran.r-project.org/web/packages/streamR/index.html), construct a .json payload like the example one above, and POST it to Botometer.
+
+
+
+
+
+
+
+
+
