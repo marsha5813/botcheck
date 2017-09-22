@@ -1,5 +1,4 @@
 # Making a call to the Botometer API from R
-output: html_document
 
 Botometer [checks the activity of a Twitter account and gives it a score based on how likely the account is to be a bot. Higher scores are more bot-like.](https://botometer.iuni.iu.edu/#!/)
 
