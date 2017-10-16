@@ -10,45 +10,72 @@ You must first [get your own API key](https://market.mashape.com/OSoMe/botometer
 
 ```{r, eval=FALSE}
 library(httr)
-library(xml2)
-library(RCurl)
-library(ROAuth)
-library(rjson)
-library(openssl)
-library(httpuv)
+library(xml2) 
+library(RJSONIO)
 ```
 
-Next, read in the example .json file included in this repo:
+You'll also need to create and register a [Twitter app](https://apps.twitter.com/). Save your keys by replacing the "xxxx" placeholders.
 
 ```{r, eval=FALSE}
-testbody = upload_file("test.json")
+consumer_key = "xxxxxxxxxxxxxxx"
+consumer_secret = "xxxxxxxxxxxxxxx"
+access_token = 	"xxxxxxxxxxxxxxx"
+access_secret = 	"xxxxxxxxxxxxxxx"
 ```
 
-Then POST the file to Botometer, replacing "XXXXX" with your key:
+Now retreive the necessary info from Twitter. In the API calls below, replace "joeydm" (my Twitter handle) with someone else's.
 
-```{r, eval=FALSE}
+```{r, eval=F}
+# Authorizations
+myapp = oauth_app("twitter", key=consumer_key, secret=consumer_secret)
+sig = sign_oauth1.0(myapp, token=access_token, token_secret=access_secret)
+
+# API call to get "user" object
+userdata=GET("https://api.twitter.com/1.1/users/show.json?screen_name=joeydm&count=200", sig)
+
+# API call to get "tweets" object
+tweets = GET("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=joeydm&count=200", sig)
+
+# API call to get "mentions" object
+mentions = GET("https://api.twitter.com/1.1/search/tweets.json?q=%40joeydm&count=200", sig)
+
+```
+
+Finally, you have to construct the JSON payload that we'll send to Botometer.
+
+```{r, eval=F}
+# Put everything in a list
+body = list(
+	timeline = content(tweets, type="application/json"),
+	mentions = content(mentions, type="application/json"),
+	user = content(userdata, type="application/json")
+)
+
+# Convert to JSON
+body_json = RJSONIO::toJSON(body, auto_unbox=TRUE, pretty = T)
+```
+
+Make the API call to Botometer. Replace "xxxxxxxxxx" with your own Botometer key.
+
+```{r, eval=F}
 result <- POST("https://osome-botometer.p.mashape.com/2/check_account",
                verbose(),
                encode="json",
-               add_headers(`X-Mashape-Key`="xxxxxxxxxxxxxxx"),
-               body=testbody)
+               add_headers(`X-Mashape-Key`="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),
+               body= body_json)
 ```
 
+And View the result
 
-And look at the results:
-
-```{r, eval=FALSE}
+```{r, eval=F}
 content(result)
 ```
 
+## Future plans
 
-You should get a brief response that let's you know the test was successful. To post real Twitter data to the API, you'll need to collect tweets, maybe using [twitteR](https://www.rdocumentation.org/packages/twitteR/versions/1.1.9) or [streamR](https://cran.r-project.org/web/packages/streamR/index.html), construct a .json payload like the example one above, and POST it to Botometer.
+This is just a rough-and-ready example of making a successful API call to Botometer. I'll soon wrap this up into a simple function that you can call, e.g., ```botcheck(twitter_user)```
 
-
-
-
-
-
+Feel free to [DM me](https://twitter.com/joeydm) with questions. 
 
 
 
