@@ -34,17 +34,16 @@ botcheck = function(user) {
   )
   
   # Convert to JSON
-  body_json = RJSONIO::toJSON(body, auto_unbox=TRUE, pretty = T)
+  body_json = RJSONIO::toJSON(body, auto_unbox = T, pretty = T)
   
   # Make the API request
-  result <- POST("https://osome-botometer.p.mashape.com/2/check_account",
-                 verbose(),
+  result = POST("https://osome-botometer.p.mashape.com/2/check_account",
                  encode="json",
                  add_headers(`X-Mashape-Key`=Mashape_key),
-                 body= body_json)
+                 body=body_json)
   
   # Parse result
-  result <- content(result, as = "parsed")
+  result = content(result, as = "parsed")
   
   # Return "English" score
   return(result$scores$english)
