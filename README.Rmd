@@ -1,4 +1,4 @@
-# Botcheck
+# botcheck
 
 This package includes a function, botcheck(), which checks a Twitter user's account against Botometer to retrieve the probability that a user is a bot.
 
@@ -15,7 +15,7 @@ install_github("marsha5813/Botcheck")
 library(botcheck)
 
 # Load Botcheck and dependencies
-library(Botcheck)
+library(botcheck)
 library(httr)
 library(xml2) 
 library(RJSONIO)
