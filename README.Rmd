@@ -1,4 +1,4 @@
-# Botometer-R
+# Botcheck
 
 This package includes a function, botcheck(), which checks a Twitter user's account against Botometer to retrieve the probability that a user is a bot.
 
@@ -11,7 +11,7 @@ Install this package from Github:
 ```{r, eval=FALSE}
 install.packages("devtools")
 library(devtools)
-install_github("marsha5813/Botometer-R")
+install_github("marsha5813/Botcheck")
 library(botcheck)
 ```
 
