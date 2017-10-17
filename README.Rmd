@@ -21,7 +21,7 @@ library(xml2)
 library(RJSONIO)
 ```
 
-## Set up 
+## Setup 
 
 You must first [get your own Botometer API key](https://market.mashape.com/OSoMe/botometer). Save your key by replacing the "xxxx" placeholders.
 
