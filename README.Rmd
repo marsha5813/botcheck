@@ -1,8 +1,6 @@
 # botcheck
 
-This package includes a function, botcheck(), which checks a Twitter user's account against Botometer to retrieve the probability that a user is a bot.
-
-Botometer [checks the activity of a Twitter account and gives it a score based on how likely the account is to be a bot. Higher scores are more bot-like.](https://botometer.iuni.iu.edu/#!/)
+botcheck makes a call to the [Botometer API](https://botometer.iuni.iu.edu/#!/) and returns the probability that a specified Twitter user is a bot. Higher probability scores are more bot-like.
 
 ## Installation
 
