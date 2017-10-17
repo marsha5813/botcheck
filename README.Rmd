@@ -15,18 +15,6 @@ install_github("marsha5813/Botcheck")
 library(botcheck)
 ```
 
-This package has some depencies:
-
-```{r, eval=FALSE}
-install.packages("httr")
-install.packages("xml2")
-install.packages("RJSONIO")
-
-library(httr)
-library(xml2) 
-library(RJSONIO)
-```
-
 ## Set up 
 
 You must first [get your own Botometer API key](https://market.mashape.com/OSoMe/botometer). Save your key by replacing the "xxxx" placeholders.
@@ -59,6 +47,10 @@ Call the botcheck() function to get the probability that a Twitter handle is a b
 botcheck("barackobama")
 ```
 
+## Dependencies
+httr
+RJSONIO
+xml2
 
 
 
