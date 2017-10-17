@@ -13,6 +13,11 @@ install.packages("devtools")
 library(devtools)
 install_github("marsha5813/Botcheck")
 library(botcheck)
+
+# Load dependencies
+library(httr)
+library(xml2) 
+library(RJSONIO)
 ```
 
 ## Set up 
@@ -46,11 +51,6 @@ Call the botcheck() function to get the probability that a Twitter handle is a b
 ```{r, eval=FALSE}
 botcheck("barackobama")
 ```
-
-## Dependencies
-* httr
-* RJSONIO
-* xml2
 
 
 
