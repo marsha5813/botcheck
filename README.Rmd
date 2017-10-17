@@ -14,7 +14,8 @@ library(devtools)
 install_github("marsha5813/Botcheck")
 library(botcheck)
 
-# Load dependencies
+# Load Botcheck and dependencies
+library(Botcheck)
 library(httr)
 library(xml2) 
 library(RJSONIO)
@@ -28,7 +29,7 @@ You must first [get your own Botometer API key](https://market.mashape.com/OSoMe
 Mashape_key = "xxxxxxxxxxxxxxxxxx"
 ```
 
-You'll need to create and register a [Twitter app](https://apps.twitter.com/). Save your keys by replacing the "xxxx" placeholders.
+You'll also need to create and register a [Twitter app](https://apps.twitter.com/). Save your keys by replacing the "xxxx" placeholders.
 
 ```{r, eval=FALSE}
 consumer_key = "xxxxxxxxxxxxxxx"
