@@ -1,0 +1,16 @@
+Package: Botometer-R
+Title: Calls Botometer API from R to check the probability that a Twitter user is a bot.
+Version: 0.0.0.9000
+Authors@R: person("Joey", "Marshall", email = "joeymarshall@live.com", role = c("aut", "cre"))
+Description: Includes a function, botcheck(), to call Botomter from R.
+Depends: R (>= 3.4.1)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Imports: httr,
+    xml2,
+    RJSONIO
+Suggests: httr,
+    xml2,
+    RJSONIO

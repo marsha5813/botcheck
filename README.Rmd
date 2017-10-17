@@ -1,20 +1,41 @@
-# Making a call to the Botometer API from R
+# Botometer-R
+
+This package includes a function, botcheck(), which checks a Twitter user's account against Botometer to retrieve the probability that a user is a bot.
 
 Botometer [checks the activity of a Twitter account and gives it a score based on how likely the account is to be a bot. Higher scores are more bot-like.](https://botometer.iuni.iu.edu/#!/)
 
-Using the [Botometer API](https://market.mashape.com/OSoMe/botometer) is pretty simple. You POST a .json file that [looks like the example request payload here](https://market.mashape.com/OSoMe/botometer) and then receive the response. [Read the overview](https://market.mashape.com/OSoMe/botometer/overview) for more information.
+## Installation
 
-The API documentation provides example API requests in a variety of formats, but there aren't any examples using R. This very simple script is a template you can use for making calls to Botometer in R.
-
-You must first [get your own API key](https://market.mashape.com/OSoMe/botometer). Then load libraries:
+Install this package from Github:
 
 ```{r, eval=FALSE}
+install.packages("devtools")
+library(devtools)
+install_github("marsha5813/Botometer-R")
+library(botcheck)
+```
+
+This package has some depencies:
+
+```{r, eval=FALSE}
+install.packages("httr")
+install.packages("xml2")
+install.packages("RJSONIO")
+
 library(httr)
 library(xml2) 
 library(RJSONIO)
 ```
 
-You'll also need to create and register a [Twitter app](https://apps.twitter.com/). Save your keys by replacing the "xxxx" placeholders.
+## Set up 
+
+You must first [get your own Botometer API key](https://market.mashape.com/OSoMe/botometer). Save your key by replacing the "xxxx" placeholders.
+
+```{r, eval=FALSE}
+Mashape_key = "xxxxxxxxxxxxxxxxxx"
+```
+
+You'll need to create and register a [Twitter app](https://apps.twitter.com/). Save your keys by replacing the "xxxx" placeholders.
 
 ```{r, eval=FALSE}
 consumer_key = "xxxxxxxxxxxxxxx"
@@ -23,59 +44,22 @@ access_token = 	"xxxxxxxxxxxxxxx"
 access_secret = 	"xxxxxxxxxxxxxxx"
 ```
 
-Now retreive the necessary info from Twitter. In the API calls below, replace "joeydm" (my Twitter handle) with someone else's.
+Finally, store the Twitter authorization info.
 
-```{r, eval=F}
-# Authorizations
+```{r, eval=FALSE}
 myapp = oauth_app("twitter", key=consumer_key, secret=consumer_secret)
 sig = sign_oauth1.0(myapp, token=access_token, token_secret=access_secret)
-
-# API call to get "user" object
-userdata=GET("https://api.twitter.com/1.1/users/show.json?screen_name=joeydm&count=200", sig)
-
-# API call to get "tweets" object
-tweets = GET("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=joeydm&count=200", sig)
-
-# API call to get "mentions" object
-mentions = GET("https://api.twitter.com/1.1/search/tweets.json?q=%40joeydm&count=200", sig)
-
 ```
 
-Finally, you have to construct the JSON payload that we'll send to Botometer.
+## Use
 
-```{r, eval=F}
-# Put everything in a list
-body = list(
-	timeline = content(tweets, type="application/json"),
-	mentions = content(mentions, type="application/json"),
-	user = content(userdata, type="application/json")
-)
+Call the botcheck() function to get the probability that a Twitter handle is a bot. Importantly, do not put the "@" before the Twitter user's name. For example:
 
-# Convert to JSON
-body_json = RJSONIO::toJSON(body, auto_unbox=TRUE, pretty = T)
+```{r, eval=FALSE}
+botcheck("barackobama")
 ```
 
-Make the API call to Botometer. Replace "xxxxxxxxxx" with your own Botometer key.
 
-```{r, eval=F}
-result <- POST("https://osome-botometer.p.mashape.com/2/check_account",
-               verbose(),
-               encode="json",
-               add_headers(`X-Mashape-Key`="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),
-               body= body_json)
-```
-
-And View the result
-
-```{r, eval=F}
-content(result)
-```
-
-## Future plans
-
-This is just a rough-and-ready example of making a successful API call to Botometer. I'll soon wrap this up into a simple function that you can call, e.g., ```botcheck(twitter_user)```
-
-Feel free to [DM me](https://twitter.com/joeydm) with questions. 
 
 
 
