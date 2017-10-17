@@ -1,4 +1,4 @@
-Package: Botometer-R
+Package: Botcheck
 Title: Calls Botometer API from R to check the probability that a Twitter user is a bot.
 Version: 0.0.0.9000
 Authors@R: person("Joey", "Marshall", email = "joeymarshall@live.com", role = c("aut", "cre"))
