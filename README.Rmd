@@ -28,8 +28,8 @@ You'll need to create and register a [Twitter app](https://apps.twitter.com/). S
 ```{r, eval=FALSE}
 consumer_key = "xxxxxxxxxxxxxxx"
 consumer_secret = "xxxxxxxxxxxxxxx"
-access_token = 	"xxxxxxxxxxxxxxx"
-access_secret = 	"xxxxxxxxxxxxxxx"
+access_token = "xxxxxxxxxxxxxxx"
+access_secret = "xxxxxxxxxxxxxxx"
 ```
 
 Finally, store the Twitter authorization info.
@@ -48,9 +48,9 @@ botcheck("barackobama")
 ```
 
 ## Dependencies
-httr
-RJSONIO
-xml2
+* httr
+* RJSONIO
+* xml2
 
 
 
