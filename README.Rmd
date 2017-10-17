@@ -9,11 +9,10 @@ Install this package from Github:
 ```{r, eval=FALSE}
 install.packages("devtools")
 library(devtools)
-install_github("marsha5813/Botcheck")
+install_github("marsha5813/botcheck")
 library(botcheck)
 
-# Load Botcheck and dependencies
-library(botcheck)
+# Load dependencies
 library(httr)
 library(xml2) 
 library(RJSONIO)
